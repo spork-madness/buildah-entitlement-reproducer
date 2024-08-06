@@ -1,2 +1,6 @@
+FROM registry.access.redhat.com/ubi9/go-toolset:1.21 as builder
+WORKDIR /foo/bar
+RUN touch buzz
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 RUN microdnf install -y shadow-utils git podman
+COPY --from=builder /foo/bar/buzz /baz/buzz
